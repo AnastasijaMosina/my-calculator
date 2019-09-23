@@ -13,7 +13,7 @@ function calculate (input, buttonName) {
     if (buttonName.match(number)) {
         //input second number
         if (input.operator) {
-            const secondNum = (input.secondNum === null)? buttonName : input.secondNum + buttonName;
+            const secondNum = (input.secondNum === null)? buttonName : input.secondNum+buttonName;
             return {
                 secondNum,
                 input: input.firstNum + input.operator + secondNum,
@@ -22,7 +22,7 @@ function calculate (input, buttonName) {
      
         //input first number
         else {
-            const firstNum = (input.firstNum === null)? buttonName : input.firstNum + buttonName;
+            const firstNum = (input.firstNum === null)? buttonName : input.firstNum+buttonName;
         return {
             firstNum,
             input: firstNum,
@@ -32,9 +32,11 @@ function calculate (input, buttonName) {
 
 
     if (buttonName === "=") {
-        const total = operation(input.firstNum, input.secondNum, input.operator);
         return{
-            total,
+            total: operation(input.firstNum, input.secondNum, input.operator),
+            history: input.secondNum ? input.history+input.secondNum : input.history.slice(0,-1),
+            secondNum: null,
+            firstNum: input.total,
         }
     }
 
@@ -46,6 +48,7 @@ function calculate (input, buttonName) {
             operator: null,
             input: null,
             total: null,
+            history: null,
         }
     }
 
@@ -103,6 +106,13 @@ function calculate (input, buttonName) {
                 input: input.firstNum + input.operator + secondNum,
             }
         }
+        else {
+            const firstNum = input.firstNum.includes(".") ? input.firstNum : input.firstNum+".";
+            return {
+                firstNum,
+                input: firstNum,
+            }
+        }
     }
 
 
@@ -112,18 +122,22 @@ function calculate (input, buttonName) {
             const firstNum = operation(input.firstNum, input.secondNum, input.operator);
             const secondNum = null;
             const operator = buttonName;
+            const history = input.secondNum ? (input.history+input.secondNum+operator) : (input.history.slice(0, -1)+operator);
             return {
                 firstNum,
                 secondNum,
                 operator,
                 input: firstNum + operator,
+                history,
             }
         }
         //sign appears first time
             const operator = buttonName;
+            const history = input.firstNum + operator;
             return {
                 operator,
                 input: input.firstNum + operator,
+                history,
             }
         
     }
