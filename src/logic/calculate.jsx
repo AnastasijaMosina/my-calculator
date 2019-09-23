@@ -11,7 +11,7 @@ function calculate (input, buttonName) {
     
 
     if (buttonName.match(number)) {
-        //vvodim vtotoe cislo
+        //input second number
         if (input.operator) {
             const secondNum = (input.secondNum === null)? buttonName : input.secondNum + buttonName;
             return {
@@ -20,7 +20,7 @@ function calculate (input, buttonName) {
             }
         }
      
-        //vvodim pervoe cislo
+        //input first number
         else {
             const firstNum = (input.firstNum === null)? buttonName : input.firstNum + buttonName;
         return {
@@ -28,31 +28,6 @@ function calculate (input, buttonName) {
             input: firstNum,
           };
         }
-    }
-
-
-    //vvodim znak
-    if (buttonName.match(sign)) {
-        if (input.operator) {
-            const firstNum = operation(input.firstNum, input.secondNum, input.operator);
-            const secondNum = null;
-            const operator = buttonName;
-            return {
-                firstNum,
-                secondNum,
-                operator,
-                input: firstNum + operator,
-            }
-        }
-        //znak pojavljaetsja vpervie
-        //const operator = buttonName;
-        
-            const operator = buttonName;
-            return {
-                operator,
-                input: input.firstNum + operator,
-            }
-        
     }
 
 
@@ -75,13 +50,24 @@ function calculate (input, buttonName) {
     }
 
     
-    // if (buttonName === "+/-") {
-    //     const firstNum = operation(input.firstNum, input.secondNum, buttonName);
-    //     return {
-    //         firstNum,
-    //         input: firstNum,
-    //     }
-    // }
+    if (buttonName === "+/-") {
+        const firstNum = operation(input.firstNum, input.secondNum, buttonName);
+        const operator = input.operator ? input.operator : null;
+        return {
+            firstNum,
+            operator,
+            input: input.operator ? firstNum+input.operator+input.secondNum : firstNum,
+        }
+    }
+
+
+    if (buttonName === "%") {
+        const secondNum = operation(input.firstNum, input.secondNum, buttonName);
+        return {
+            input: input.firstNum + input.operator+input.secondNum+buttonName,
+            secondNum,
+        }
+    }
 
 
     if (buttonName === "C") {
@@ -107,54 +93,44 @@ function calculate (input, buttonName) {
             }
         }
     }
+
+
+    if (buttonName === ".") {
+        if (input.secondNum) {
+            const secondNum = input.secondNum.includes(".") ? input.secondNum : input.secondNum+".";
+            return {
+                secondNum,
+                input: input.firstNum + input.operator + secondNum,
+            }
+        }
+    }
+
+
+    // input sign
+    if (buttonName.match(sign)) {
+        if (input.operator) {
+            const firstNum = operation(input.firstNum, input.secondNum, input.operator);
+            const secondNum = null;
+            const operator = buttonName;
+            return {
+                firstNum,
+                secondNum,
+                operator,
+                input: firstNum + operator,
+            }
+        }
+        //sign appears first time
+            const operator = buttonName;
+            return {
+                operator,
+                input: input.firstNum + operator,
+            }
+        
+    }
 }
+
 export default calculate;
 
 
 
 
-
-// // eto rabotaet, no eto ne mojo
-
-
-//    // vvodim cislo
-//     if (buttonName.match(number)) {
-//         //vvodim vtotoe cislo esli estj operacija 
-//         if (input.operation) {
-//             if (input.next) {
-//                 return {next: input.next + buttonName};
-//             }
-//             return {next: buttonName};
-//         }
-//         //vvodim pervoe cislo
-//         if (input.next) {
-//             const next = input.next === "0" ? buttonName : input.next + buttonName;
-//             return {
-//                 next,
-//             };
-//         }
-//         return {
-//             next: buttonName,
-//         };
-//     }
-
-//     //press operation after first num
-//     if (buttonName.match(sign))
-//     return {
-//         total: input.next,
-//         next: null,
-//         operation: buttonName
-//     }
-    
-//     if (buttonName === "=") {
-//         return {
-//             total: operation(input.total, input.next, input.operation),
-//         }
-//     }
-
-    
-
-// }
-
-
-//export default calculate

@@ -22,6 +22,10 @@ function operation(firstNum, secondNum, operator) {
     if (operator === "+/-") {
         return (one*(-1)).toString();
     }
+
+    if (operator === "%") {
+        return ((one*two)/100).toString(); 
+    }
 }
 
 export default operation;

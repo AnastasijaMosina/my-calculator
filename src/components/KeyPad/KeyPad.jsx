@@ -21,29 +21,29 @@ class KeyPad extends React.Component {
             <div>
                 <div className="keypad">
                         <Button name="AC" secondClick={this.handleClick} />
-                        {/* <Button name="+/-" secondClick={this.handleClick} /> */}
-                        {/* <Button name="%" secondClick={this.handleClick} /> */}
+                        <Button name="+/-" secondClick={this.handleClick} />
+                        <Button name="%" secondClick={this.handleClick} />
                         <Button name="C" secondClick={this.handleClick} /> <br/>
 
                         <Button name="7" secondClick={this.handleClick} />
                         <Button name="8" secondClick={this.handleClick} />
                         <Button name="9" secondClick={this.handleClick} />
-                        <Button name="/" secondClick={this.handleClick} /> <br/>
+                        <Button className="c-sign" name="/" secondClick={this.handleClick} /> <br/>
 
                         <Button name="4" secondClick={this.handleClick} />
                         <Button name="5" secondClick={this.handleClick} />
                         <Button name="6" secondClick={this.handleClick} />
-                        <Button name="x" secondClick={this.handleClick} /> <br/>
+                        <Button className="c-sign" name="x" secondClick={this.handleClick} /> <br/>
 
                         <Button name="1" secondClick={this.handleClick} />
                         <Button name="2" secondClick={this.handleClick} />
                         <Button name="3" secondClick={this.handleClick} />
-                        <Button name="-" secondClick={this.handleClick} /> <br/>
+                        <Button className="c-sign" name="-" secondClick={this.handleClick} /> <br/>
 
                         <Button name="." secondClick={this.handleClick} />
                         <Button name="0" secondClick={this.handleClick} />
                         <Button name="=" secondClick={this.handleClick} />
-                        <Button name="+" secondClick={this.handleClick} /> <br/>
+                        <Button className="c-sign" name="+" secondClick={this.handleClick} /> <br/>
                 </div>
             </div> 
         );
